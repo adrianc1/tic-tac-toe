@@ -14,17 +14,18 @@
     <div class="main-container">
 
         <div class="header">
-            <h1>Tic Tac Hoe!</h1>
-            <div id="player-turn"></div>
+            <h1>tic tac hoe!</h1>
         </div>
+        <div id="player-turn">who turn it is?</div>
+        <div class="winner-display" id="winner"></div>
 
         <div class="form-container">
             <form action="" class="get-players" id='form'>
                 <label for="pimp">Who will be the Pimp?</label>
-                <input type="text" id="pimp">
+                <input type="text" id="pimp" required>
                 <label for="hoe">Who will be the Hoe?</label>
-                <input type="text" id="hoe">
-                <button type="submit" id="submit-btn">Submit</button>
+                <input type="text" id="hoe" required>
+                <button type="submit" id="submit-btn">Start Game</button>
             </form>
         </div>
 
@@ -41,9 +42,9 @@
                 <div class="cell" data-index='8'></div>
             </div>
             <div class="button-class">
-                <button class="start-game">Start Game</button>
+                <button class="reset-game" id="reset-game">Reset Game</button>
             </div>
-            <div class="winner-display"></div>
+            
         </div>
     </div>
 

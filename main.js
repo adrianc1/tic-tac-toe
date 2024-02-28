@@ -4,6 +4,7 @@ function gameboard() {
     let board = [];
     const btn = document.getElementById('submit-btn');
     const form = document.getElementById('form');
+    const nameDisplay = document.getElementById('player-turn');
 
     for (let i = 0; i < rows*cols; i++) {
         board.push('');
@@ -15,16 +16,31 @@ function gameboard() {
         const hoeValue = document.getElementById('hoe').value;
         const playerUno = createPlayer(pimpValue, 'X');
         const playerDos = createPlayer(hoeValue, 'O');
+
+        /* condition to make user input name */
+        if (playerUno.name === '' || playerDos.name === '') {
+            alert('please enter a name for both fields')
+            return
+        }
+
         form.style.display = 'none';
+        nameDisplay.style.display = 'block';
         gamePlay(board, playerUno, playerDos);
     });   
-}
+};
+
+
+
+/* update current player on display */
 
 function updateNameDisplay(display, player) {
     return display.textContent = `it is ${player.name}'s turn!`
 };
 
+
+
 /* Game play function */
+
 function gamePlay(board, currPlayer, player2) {
     
     /* set up variables for the function  */
@@ -32,7 +48,6 @@ function gamePlay(board, currPlayer, player2) {
     const cells = document.querySelectorAll('.cell');
     const nameDisplay = document.getElementById('player-turn');
     
-
     /* display current players turn on the board */
     updateNameDisplay(nameDisplay, currentPlayer);
 
@@ -40,10 +55,8 @@ function gamePlay(board, currPlayer, player2) {
     cells.forEach((cell) => {
         cell.addEventListener('click', () => {
             
-
         /* pull data-index number from html  */
         const index = parseInt(cell.dataset.index);
-
 
         /* condition check for empty/blank cell */
         if(cell.textContent !== '') {
@@ -81,8 +94,13 @@ function gamePlay(board, currPlayer, player2) {
     })
 }
 
+
+
+
+/* function to check if there is a winner */
+
 function isThereAWinner(board) {
-    let roundWon = false;
+let roundWon = false;
 
     const winningCombos = [
         [0, 1, 2], // top row
@@ -114,10 +132,26 @@ function isThereAWinner(board) {
         }
     }
 };
+
+
 /* create a player constructor */
+
 function createPlayer (name, marker) {
     return {name, marker}
 };
 
+
+/* reset game  */
+
+const resetGame = {
+    init: function() {
+        document.getElementById('reset-game').addEventListener('click', () => {
+            window.location.reload();
+            console.log('init function worked!')
+        })
+    }
+};
+
+resetGame.init();
 
 let gameBoard = gameboard()
