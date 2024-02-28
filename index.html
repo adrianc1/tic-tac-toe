@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="main-container">
+
+        <div class="header">
+            <h1>Tic Tac Hoe!</h1>
+            <div id="player-turn"></div>
+        </div>
+
+        <div class="form-container">
+            <form action="" class="get-players" id='form'>
+                <label for="pimp">Who will be the Pimp?</label>
+                <input type="text" id="pimp">
+                <label for="hoe">Who will be the Hoe?</label>
+                <input type="text" id="hoe">
+                <button type="submit" id="submit-btn">Submit</button>
+            </form>
+        </div>
+
+        <div class="game-board">
+            <div class="board">
+                <div class="cell" data-index='0'></div>
+                <div class="cell" data-index='1'></div>
+                <div class="cell" data-index='2'></div>
+                <div class="cell" data-index='3'></div>
+                <div class="cell" data-index='4'></div>
+                <div class="cell" data-index='5'></div>
+                <div class="cell" data-index='6'></div>
+                <div class="cell" data-index='7'></div>
+                <div class="cell" data-index='8'></div>
+            </div>
+            <div class="button-class">
+                <button class="start-game">Start Game</button>
+            </div>
+            <div class="winner-display"></div>
+        </div>
+    </div>
+
+
+    <script src="main.js"></script>
+</body>
+</html>

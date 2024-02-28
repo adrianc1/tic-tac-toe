@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --light-color: #ececec;
+    --cell-color:#385170;
+    --cell-win-color:  #9fd3c7;
+    --dark-color: #142d4c;
+    --game-font: "Rubik", sans-serif;
+}
+/* ensure the window fills the available screen height */ html, body { 
+    height: 100vh;
+    width: 100vw;
+
+} /* center the children of body */ 
+
+body {
+/*     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    background-color: var(--dark-color);
+    font-family: var(--game-font);
+    height: 100vh;
+    width: 100vw;
+}
+.main-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.header {
+    height: 30%;
+    border:5px solid white;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--light-color);
+    height: 100%;
+    width: 100%;
+    font-size: 4.5rem;
+    text-align: center;
+
+}
+
+#player-turn {
+    color: var(--light-color);
+    font-size: 3.2rem;
+
+}
+
+.game-board {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:first baseline;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    border: 3px solid pink;
+}
+.board {
+    display: grid;
+    width: auto;
+    height: auto;
+    gap: 20px;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 250px;
+    background-color: var(--light-color);
+    border: 1.5px solid black;
+    border-radius: 10px;
+    font-size: 8rem;
+    font-family: var(--game-font);
+    text-align: center;
+}
+
+form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 150px;
+    padding-top: 100px;
+    padding-bottom: 200px;
+}
+
+label {
+    font-size: 2rem;
+    color: var(--light-color)
+}
+
+input {
+    width: 20%;
+    padding: 20px;
+}
+
+.cell:hover {
+    background-color: var(--cell-win-color);
+    cursor: pointer;
+}
+
+.button-class {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+}
+
+button {
+    padding: 2.4rem 4rem;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--cell-win-color);
+    color: var(--cell-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: var(--light-color);
+    cursor: pointer;
+}
