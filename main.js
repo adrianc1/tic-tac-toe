@@ -1,107 +1,82 @@
-function gameboard() {
-    let rows = 3;
-    let cols = 3;
-    let board = [];
-    const btn = document.getElementById('submit-btn');
-    const form = document.getElementById('form');
-    const nameDisplay = document.getElementById('player-turn');
+/* Render Gameboard and Markers module */
+const Gameboard = (function() {
+    let gameboard = ['', '', '','', '', '','', '', ''];
 
-    for (let i = 0; i < rows*cols; i++) {
-        board.push('');
+    const render = () => {
+    let boardHTML  = "";
+    gameboard.forEach((cell, index) => {
+        boardHTML += `<div class="cell" id="cell-${index}">${cell}</div>`    
+    });
+
+    document.getElementById('form').style.display = 'none';
+    document.getElementById('board').innerHTML = boardHTML;
+
+    const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            cell.addEventListener('click', Game.handleClick)
+        }) 
+    };
+    
+
+    const update = (player, index) => {
+        gameboard[index] = player.marker;
+        render(); 
     };
 
-    btn.addEventListener('click', (e) => {  
-        e.preventDefault();
-        const pimpValue = document.getElementById('pimp').value;
-        const hoeValue = document.getElementById('hoe').value;
-        const playerUno = createPlayer(pimpValue, 'X');
-        const playerDos = createPlayer(hoeValue, 'O');
 
-        /* condition to make user input name */
-        if (playerUno.name === '' || playerDos.name === '') {
-            alert('please enter a name for both fields')
-            return
+    const getGameboard = gameboard;
+
+    return {
+        render,
+        update,
+        getGameboard,
+    }
+})();
+
+/* game controller module */
+const Game = (function() {
+    let players = [];
+    let currentPlayerIndex = 0;
+    
+    const start = () => {
+        players = 
+        [createPlayer(document.getElementById('player-one').value, 'X'), 
+        createPlayer(document.getElementById('player-two').value, 'O')
+    ];
+        Gameboard.render();
+    }
+
+    const handleClick = (event) => {
+        let index = parseInt(event.target.id.split('-')[1]);
+        /* check if gameboard cell is empty */
+        if(Gameboard.getGameboard[index] !== '') return
+
+        /* update square with current player mark */
+        Gameboard.update(players[currentPlayerIndex], index);
+
+        /* check for a winner */
+        if(checkForWin( Gameboard.getGameboard, players[currentPlayerIndex])) {
+            console.log('gameover sucka')
         }
-
-        form.style.display = 'none';
-        nameDisplay.style.display = 'block';
-        gamePlay(board, playerUno, playerDos);
-    });   
-};
+        currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; 
+        document.getElementById('player-turn').textContent = `it is ${players[currentPlayerIndex].name} turn`
+    }
 
 
+    return {
+        start,
+        handleClick, 
+    }
+})();
 
-/* update current player on display */
-
-function updateNameDisplay(display, player) {
-    return display.textContent = `it is ${player.name}'s turn!`
-};
-
-
-
-/* Game play function */
-
-function gamePlay(board, currPlayer, player2) {
-    
-    /* set up variables for the function  */
-    let currentPlayer = currPlayer;
-    const cells = document.querySelectorAll('.cell');
-    const nameDisplay = document.getElementById('player-turn');
-    
-    /* display current players turn on the board */
-    updateNameDisplay(nameDisplay, currentPlayer);
-
-    /* loop through each cell when clicked add event listener */
-    cells.forEach((cell) => {
-        cell.addEventListener('click', () => {
-            
-        /* pull data-index number from html  */
-        const index = parseInt(cell.dataset.index);
-
-        /* condition check for empty/blank cell */
-        if(cell.textContent !== '') {
-            isThereAWinner(board)
-            alert('cell is taken!')
-
-        } else {
-            console.log(currentPlayer.name === currPlayer.name)
-            /* If selected cell is blank run: */
-            if(currentPlayer.name === currPlayer.name) {
-
-                /* update cell with current player marker */
-                cell.textContent = currentPlayer.marker;
-                board[index] = currentPlayer.marker;
-                
-                /* run isthereawinner function to check if winner */
-                isThereAWinner(board)
-
-                /* if no winner, update current player and text */
-                currentPlayer = player2;
-                updateNameDisplay(nameDisplay, currentPlayer);
-
-            }  else {
-
-                cell.textContent = currentPlayer.marker;
-                board[index] = currentPlayer.marker;
-
-                isThereAWinner(board)
-
-                currentPlayer = currPlayer;
-                updateNameDisplay(nameDisplay, currentPlayer);
-            }
-        };
-        });
-    })
+/* Check for time games */
+function checkForTie(cell) {
+    return cell !== "";
 }
 
-
-
-
-/* function to check if there is a winner */
-
-function isThereAWinner(board) {
-let roundWon = false;
-
+/* check for the winner */
+function checkForWin(board, player ) {
+    let gameOver = false; 
     const winningCombos = [
         [0, 1, 2], // top row
         [3, 4, 5], // middle row
@@ -113,45 +88,58 @@ let roundWon = false;
         [2, 4, 6]  // diagonal from top-right to bottom-left
     ];
 
+
     for (let i = 0; i < winningCombos.length; i++) {
-
-        let winCondition = winningCombos[i];
-        let a = board[winCondition[0]]
-        let b = board[winCondition[1]]
-        let c = board[winCondition[2]]
-        
-
-        if( a === '' || b === '' || c === '') {
-            continue
-        }
-
-        if (a === b && b === c) {
-            roundWon = true;
-            
-            alert('We have a winner!')
+        const [a, b, c] = winningCombos[i];
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            document.getElementById('winner').textContent = `${player.name} is the winner!`
+            return true;
+        } else if (board.every(checkForTie) && gameOver === false) {
+            document.getElementById('winner').textContent = "Tie Game!"
+            return true;
         }
     }
+    return false;
 };
 
 
-/* create a player constructor */
+/* reset game function */
+function resetGame  () {
+    window.location.reload()
 
+}
+
+/* create a player constructor */
 function createPlayer (name, marker) {
     return {name, marker}
 };
 
+/* start button to start the game! */
+const startBtn = document.getElementById('submit-btn');
+startBtn.addEventListener('click', Game.start)
 
-/* reset game  */
+const resetBtn = document.getElementById('reset-btn');
+resetBtn.addEventListener('click', resetGame)
 
-const resetGame = {
-    init: function() {
-        document.getElementById('reset-game').addEventListener('click', () => {
-            window.location.reload();
-            console.log('init function worked!')
-        })
-    }
-};
 
-resetGame.init();
 
-let gameBoard = gameboard()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

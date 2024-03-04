@@ -18,14 +18,11 @@
 } /* center the children of body */ 
 
 body {
-/*     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
     background-color: var(--dark-color);
     font-family: var(--game-font);
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 .main-container {
     height: 100%;
@@ -52,20 +49,18 @@ h1 {
 }
 
 #player-turn {
-    display: none;
     color: var(--light-color);
-    font-size: 3.2rem;
+    font-size: 3rem;
     text-align: center;
-    margin-top: 2rem;
-    margin-bottom: 5rem;
+    height:auto;
 }
 
 #winner {
     color: var(--light-color);
-    font-size: 3.2rem;
+    font-size: 3rem;
     text-align: center;
     margin-top: 2rem;
-    margin-bottom: 5rem; 
+    margin-bottom: 3rem; 
 }
 
 .game-board {
@@ -92,12 +87,12 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 250px;
-    width: 250px;
+    height: 8rem;
+    width: 8rem;
     background-color: var(--light-color);
     border: 1.5px solid black;
     border-radius: 10px;
-    font-size: 8rem;
+    font-size: 6rem;
     font-family: var(--game-font);
     text-align: center;
 }
@@ -116,6 +111,7 @@ form {
 
 label {
     font-size: 2rem;
+    font-weight: 600;
     color: var(--light-color)
 }
 
@@ -123,6 +119,8 @@ input {
     width: 20%;
     padding: 20px;
     font-size: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
 }
 
 .cell:hover {
@@ -139,7 +137,7 @@ input {
 }
 
 button {
-    padding: 2.4rem 4rem;
+    padding: 2rem 3.5rem;
     border-radius: 20px;
     border: none;
     background-color: var(--cell-win-color);

@@ -16,33 +16,24 @@
         <div class="header">
             <h1>tic tac hoe!</h1>
         </div>
-        <div id="player-turn">who turn it is?</div>
+        <div id="player-turn"></div>
         <div class="winner-display" id="winner"></div>
 
         <div class="form-container">
             <form action="" class="get-players" id='form'>
-                <label for="pimp">Who will be the Pimp?</label>
-                <input type="text" id="pimp" required>
-                <label for="hoe">Who will be the Hoe?</label>
-                <input type="text" id="hoe" required>
-                <button type="submit" id="submit-btn">Start Game</button>
+                <label for="player-one">Who will be the Pimp?</label>
+                <input type="text" id="player-one" required>
+                <label for="player-two">Who will be the Hoe?</label>
+                <input type="text" id="player-two" required>
+                <button type="button" id="submit-btn">Start Game</button>
             </form>
         </div>
 
-        <div class="game-board">
-            <div class="board">
-                <div class="cell" data-index='0'></div>
-                <div class="cell" data-index='1'></div>
-                <div class="cell" data-index='2'></div>
-                <div class="cell" data-index='3'></div>
-                <div class="cell" data-index='4'></div>
-                <div class="cell" data-index='5'></div>
-                <div class="cell" data-index='6'></div>
-                <div class="cell" data-index='7'></div>
-                <div class="cell" data-index='8'></div>
+        <div class="game-board" id="gameboard">
+            <div class="board" id="board">
             </div>
             <div class="button-class">
-                <button class="reset-game" id="reset-game">Reset Game</button>
+                <button class="reset-btn" id="reset-btn">Reset Game</button>
             </div>
             
         </div>
