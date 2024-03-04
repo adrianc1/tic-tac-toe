@@ -76,7 +76,7 @@ function checkForTie(cell) {
 
 /* check for the winner */
 function checkForWin(board, player ) {
-    let gameOver = false; 
+    let gameOver = false;
     const winningCombos = [
         [0, 1, 2], // top row
         [3, 4, 5], // middle row
@@ -88,19 +88,25 @@ function checkForWin(board, player ) {
         [2, 4, 6]  // diagonal from top-right to bottom-left
     ];
 
-
     for (let i = 0; i < winningCombos.length; i++) {
-        const [a, b, c] = winningCombos[i];
+        const winningArray = [a, b, c] = winningCombos[i];
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            
+            winningArray.forEach((index) => {
+                const cells = document.querySelectorAll('.cell');
+                cells[index].style.backgroundColor = "#DAA21B"
+            })
+
             document.getElementById('winner').textContent = `${player.name} is the winner!`
             return true;
-        } else if (board.every(checkForTie) && gameOver === false) {
-            document.getElementById('winner').textContent = "Tie Game!"
-            return true;
+            } else if (board.every(checkForTie) && gameOver === false) {
+                document.getElementById('winner').textContent = "Tie Game!"
+                return true;
+            } 
         }
+        return false;
     }
-    return false;
-};
+    
 
 
 /* reset game function */
