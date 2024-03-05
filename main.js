@@ -2,6 +2,7 @@
 const Gameboard = (function() {
     let gameboard = ['', '', '','', '', '','', '', ''];
 
+    /* render the gameboard on the screen */
     const render = () => {
     let boardHTML  = "";
     gameboard.forEach((cell, index) => {
@@ -17,13 +18,13 @@ const Gameboard = (function() {
         }) 
     };
     
-
+/* update gameboard with current player marker */
     const update = (player, index) => {
         gameboard[index] = player.marker;
         render(); 
     };
 
-
+/* get a copy of the gameboard to read */
     const getGameboard = gameboard;
 
     return {
@@ -38,6 +39,7 @@ const Game = (function() {
     let players = [];
     let currentPlayerIndex = 0;
     
+    /* start game play */
     const start = () => {
         players = 
         [createPlayer(document.getElementById('player-one').value, 'X'), 
@@ -46,6 +48,7 @@ const Game = (function() {
         Gameboard.render();
     }
 
+    /* function to handle click events */
     const handleClick = (event) => {
         let index = parseInt(event.target.id.split('-')[1]);
         /* check if gameboard cell is empty */
@@ -69,7 +72,7 @@ const Game = (function() {
     }
 })();
 
-/* Check for time games */
+/* Check for time games function */
 function checkForTie(cell) {
     return cell !== "";
 }
@@ -120,12 +123,15 @@ function createPlayer (name, marker) {
     return {name, marker}
 };
 
+/* reset button to reset gameboard */
+const resetBtn = document.getElementById('reset-btn');
+resetBtn.addEventListener('click', resetGame);
+
 /* start button to start the game! */
 const startBtn = document.getElementById('submit-btn');
-startBtn.addEventListener('click', Game.start)
+startBtn.addEventListener('click', Game.start);
 
-const resetBtn = document.getElementById('reset-btn');
-resetBtn.addEventListener('click', resetGame)
+
 
 
 
